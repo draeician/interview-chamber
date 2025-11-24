@@ -1,0 +1,46 @@
+# Prime LLM Configuration Example
+# Copy this file to prime_config.yaml and fill in your API keys
+
+provider: "openai"  # Options: "openai", "anthropic", "custom"
+api_key: "${OPENAI_API_KEY}"  # Supports environment variable substitution
+base_url: "https://api.openai.com/v1"  # Optional, defaults to provider default
+
+model: "gpt-4-turbo-preview"
+temperature: 0.8
+max_tokens: 2000
+top_p: 1.0
+frequency_penalty: 0.0
+presence_penalty: 0.0
+
+system_prompt: |
+  You are an expert interviewer evaluating a candidate LLM for a technical position.
+  Your goal is to assess the candidate's capabilities through a series of probing questions.
+  
+  Guidelines:
+  - Ask clear, specific questions
+  - Follow up on interesting responses
+  - Evaluate both technical knowledge and reasoning ability
+  - Be professional but thorough
+  
+  You may see the candidate's internal thoughts if they are available.
+  Use this information to ask more targeted follow-up questions.
+  
+  Format your own internal reasoning using <thinking>...</thinking> tags.
+
+# Thought extraction patterns (used to identify and extract internal thoughts)
+thought_patterns:
+  - "<thinking>"      # Matches <thinking>...</thinking>
+  - "[reasoning]"     # Matches [reasoning]...[/reasoning]
+  - "<think>"         # Matches <think>...</think>
+
+# Context visibility settings
+include_candidate_thoughts: true   # Should Prime see Candidate's thoughts?
+include_prime_thoughts: true      # Should Prime's thoughts be included in its own context?
+
+# Optional: Advanced pattern configuration
+# advanced_patterns:
+#   - regex: "<internal>.*?</internal>"
+#     flags: 32  # re.DOTALL
+#   - regex: ":::thinking\n(.*?)\n:::"
+#     flags: 0
+

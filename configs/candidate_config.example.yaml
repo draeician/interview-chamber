@@ -1,0 +1,34 @@
+# Candidate LLM Configuration Example
+# Copy this file to candidate_config.yaml and fill in your API keys
+
+provider: "anthropic"  # Options: "openai", "anthropic", "custom"
+api_key: "${ANTHROPIC_API_KEY}"  # Supports environment variable substitution
+base_url: "https://api.anthropic.com"  # Optional, defaults to provider default
+
+model: "claude-3-opus-20240229"
+temperature: 0.7
+max_tokens: 2000
+top_p: 1.0
+
+system_prompt: |
+  You are a candidate being interviewed for a technical position.
+  Answer questions thoughtfully and demonstrate your capabilities.
+  
+  Guidelines:
+  - Be clear and concise
+  - Show your reasoning process
+  - Ask clarifying questions if needed
+  - Be honest about limitations
+  
+  Use <think>...</think> tags to show your internal reasoning process.
+  These thoughts will help the interviewer understand your problem-solving approach.
+
+# Thought extraction patterns (used to identify and extract internal thoughts)
+thought_patterns:
+  - "<think>"         # Matches <think>...</think>
+  - "[thoughts]"      # Matches [thoughts]...[/thoughts]
+  - "<reasoning>"     # Matches <reasoning>...</reasoning>
+
+# Note: Candidate never sees Prime's thoughts (context isolation)
+# Candidate only sees the shared conversation (public content)
+
